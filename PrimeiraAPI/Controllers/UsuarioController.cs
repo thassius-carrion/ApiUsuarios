@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PrimeiraAPI.Dtos;
 using PrimeiraAPI.Models;
+using PrimeiraAPI.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,12 @@ namespace PrimeiraAPI.Controllers
     public class UsuarioController : ControllerBase
     {
         private readonly ILogger<LoginController> _logger;
+        private readonly IUsuarioRepository _usuarioRepository;
+
+        public UsuarioController(IUsuarioRepository usuarioRepository)
+        {
+            _usuarioRepository = usuarioRepository;
+        }
 
         [HttpGet]
         public IActionResult ObterUsuario()
@@ -33,6 +40,7 @@ namespace PrimeiraAPI.Controllers
         {
             try
             {
+                _usuarioRepository.Salvar(usuario);
                 return Ok(usuario);
             }
             catch (Exception excecao)
