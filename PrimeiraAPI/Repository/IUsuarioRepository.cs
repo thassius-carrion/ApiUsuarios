@@ -9,5 +9,7 @@ namespace PrimeiraAPI.Repository
     public interface IUsuarioRepository
     {
         public void Salvar(Usuario usuario);
+
+        public List<Usuario> GetUsuarios();
     }
 }

@@ -24,15 +24,9 @@ namespace PrimeiraAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult ObterUsuario()
+        public IActionResult GetUsuarios()
         {
-            var usuario = new Usuario()
-            {
-                Nome = "Teste",
-                Email = "teste@teste.com",
-                Senha = "12345ab"
-            };
-            return Ok(usuario);
+            return Ok(_usuarioRepository.GetUsuarios());
         }
 
         [HttpPost]

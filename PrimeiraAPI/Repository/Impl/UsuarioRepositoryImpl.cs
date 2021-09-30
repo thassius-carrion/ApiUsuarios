@@ -9,10 +9,18 @@ namespace PrimeiraAPI.Repository.Impl
     public class UsuarioRepositoryImpl : IUsuarioRepository
     {
         private readonly PrimeiraAPIContext _context;
+
         public UsuarioRepositoryImpl(PrimeiraAPIContext context)
         {
             _context = context;
         }
+
+        public List<Usuario> GetUsuarios()
+        {
+            return _context.Usuario.ToList();
+            _context.SaveChanges();
+        }
+
         public void Salvar(Usuario usuario)
         {
             _context.Usuario.Add(usuario);
