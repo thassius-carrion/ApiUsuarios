@@ -44,6 +44,14 @@ namespace PrimeiraAPI.Repository.Impl
             _context.Entry(usuario).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
         }
 
-        
+        public bool IsUsuarioEIdValido(Usuario usuario, int Id)
+        {
+            if(usuario == null || Id <= 0)
+            {
+                return false;
+            }
+            return true;
+        }
+          
     }
 }

@@ -17,5 +17,6 @@ namespace PrimeiraAPI.Repository
         public void DeleteUsuarioById(int Id);
 
         public void AtualizarUsuario(Usuario usuario);
+        public bool IsUsuarioEIdValido(Usuario usuario, int Id);
     }
 }

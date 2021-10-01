@@ -34,7 +34,16 @@ namespace PrimeiraAPI.Controllers
         {
             try
             {
-                return Ok(_usuarioRepository.GetUsuarioById(id));
+                var usuario = _usuarioRepository.GetUsuarioById(id);
+                if (!_usuarioRepository.IsUsuarioEIdValido(usuario, id))
+                {
+                    return BadRequest(new ErroRespostaDto()
+                    {
+                        Status = StatusCodes.Status400BadRequest,
+                        Erro = "ID inválido, tente novamente."
+                    });
+                }
+                return Ok(usuario);
             }
             catch (Exception excecao)
             {
@@ -71,6 +80,14 @@ namespace PrimeiraAPI.Controllers
             try
             {
                 var usuarioToChange = _usuarioRepository.GetUsuarioById(id);
+                if (!_usuarioRepository.IsUsuarioEIdValido(usuarioToChange, id))
+                {
+                    return BadRequest(new ErroRespostaDto()
+                    {
+                        Status = StatusCodes.Status400BadRequest,
+                        Erro = "ID inválido, tente novamente."
+                    });
+                }
                 usuarioToChange.Nome = usuario.Nome;
                 usuarioToChange.Email = usuario.Email;
                 usuarioToChange.Senha = usuario.Senha;
