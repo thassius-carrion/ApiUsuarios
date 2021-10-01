@@ -15,7 +15,7 @@ namespace PrimeiraAPI.Controllers
     [Route("api/[controller]")]
     public class UsuarioController : ControllerBase
     {
-        private readonly ILogger<LoginController> _logger;
+
         private readonly IUsuarioRepository _usuarioRepository;
 
         public UsuarioController(IUsuarioRepository usuarioRepository)
@@ -32,7 +32,18 @@ namespace PrimeiraAPI.Controllers
         [HttpGet("{id:int}")]
         public IActionResult GetUsuarioById(int id)
         {
-            return Ok(_usuarioRepository.GetUsuarioById(id));
+            try
+            {
+                return Ok(_usuarioRepository.GetUsuarioById(id));
+            }
+            catch (Exception excecao)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, new ErroRespostaDto()
+                {
+                    Status = StatusCodes.Status404NotFound,
+                    Erro = "Ocorreu um erro ao tentar buscar o Usuario, tente novamente."
+                });
+            }
         }
 
         [HttpDelete("{id:int}")]
@@ -45,7 +56,6 @@ namespace PrimeiraAPI.Controllers
             }
             catch (Exception excecao)
             {
-                //_logger.LogError($"Ocorreu um erro ao deletar o usuario: {excecao.Message}", excecao);
                 return StatusCode(StatusCodes.Status404NotFound, new ErroRespostaDto()
                 {
                     Status = StatusCodes.Status404NotFound,
@@ -69,11 +79,10 @@ namespace PrimeiraAPI.Controllers
             }
             catch (Exception excecao)
             {
-                //_logger.LogError($"Ocorreu um erro ao salvar o usuario: {excecao.Message}", excecao);
                 return StatusCode(StatusCodes.Status400BadRequest, new ErroRespostaDto()
                 {
                     Status = StatusCodes.Status400BadRequest,
-                    Erro = "Ocorreu um erro ao salvar o usuario, tente novamente."
+                    Erro = "Ocorreu um erro ao atualizar um usuario, tente novamente."
                 });
             }
 
@@ -89,7 +98,6 @@ namespace PrimeiraAPI.Controllers
             }
             catch (Exception excecao)
             {
-                //_logger.LogError($"Ocorreu um erro ao salvar o usuario: {excecao.Message}", excecao);
                 return StatusCode(StatusCodes.Status400BadRequest, new ErroRespostaDto()
                 {
                     Status = StatusCodes.Status400BadRequest,
