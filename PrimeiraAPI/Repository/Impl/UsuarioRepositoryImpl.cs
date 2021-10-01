@@ -18,6 +18,16 @@ namespace PrimeiraAPI.Repository.Impl
         public List<Usuario> GetUsuarios()
         {
             return _context.Usuario.ToList();
+        }
+
+        public Usuario GetUsuarioById(int Id)
+        {
+            return _context.Usuario.Find(Id);
+        }
+
+        public void DeleteUsuarioById(int Id)
+        {
+            _context.Usuario.Remove(GetUsuarioById(Id));
             _context.SaveChanges();
         }
 
@@ -25,6 +35,13 @@ namespace PrimeiraAPI.Repository.Impl
         {
             _context.Usuario.Add(usuario);
             _context.SaveChanges();
+        }
+
+        public void AtualizarUsuario(Usuario usuario)
+        {
+            _context.Entry(usuario).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.SaveChanges();
+            _context.Entry(usuario).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
         }
 
         

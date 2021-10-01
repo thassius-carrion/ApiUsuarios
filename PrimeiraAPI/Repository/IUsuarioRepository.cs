@@ -11,5 +11,11 @@ namespace PrimeiraAPI.Repository
         public void Salvar(Usuario usuario);
 
         public List<Usuario> GetUsuarios();
+
+        public Usuario GetUsuarioById(int Id);
+
+        public void DeleteUsuarioById(int Id);
+
+        public void AtualizarUsuario(Usuario usuario);
     }
 }
